@@ -88,9 +88,10 @@ view at http://127.0.0.1:30950/hello
 view at http://127.0.0.1:30950/logs
 ```
 
-10. Clean up
+10. Clean up.
 ```
 % kind delete cluster --name=hello-cluster
+% docker image rm hello-app
 ```
 
 References
