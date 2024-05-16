@@ -97,4 +97,5 @@ view at http://127.0.0.1:30950/logs
 References
 - [Docker Go Image Building](https://docs.docker.com/language/golang/build-images/)
 - [Kind Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/)
+- [Persistent Volumes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
 - [Restarting Pods](https://spacelift.io/blog/restart-kubernetes-pods-with-kubectl)
