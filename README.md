@@ -43,10 +43,15 @@ With everything created, I then ran through the below steps to test and verify t
 % docker build -t hello-app $KUBE_HOME/app
 ```
 
-3. Create the cluster and load the image into the worker.
+3. Create the cluster and load the image into the worker. Add the nginx controller and wait for it to be ready.
 ```
 % kind create cluster --name=hello-cluster --config=$KUBE_HOME/kubernetes/kind-config.yml
 % kind load docker-image hello-app --name hello-cluster --nodes hello-cluster-worker
+% kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+% kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
 ```
 
 4. Apply the kubernetes config file.
@@ -56,15 +61,15 @@ With everything created, I then ran through the below steps to test and verify t
 
 5. Verify accessibility and cause a log event.
 ```
-% curl 127.0.0.1:30950/hello 
+% curl http://localhost/hello 
   OR 
-view at http://127.0.0.1:30950/hello
+view at http://localhost/hello
 ```
 6. Verify the log was created in the logs directory.
 ```
-% curl 127.0.0.1:30950/logs 
+% curl http://localhost/logs 
   OR 
-view at http://127.0.0.1:30950/logs
+view at http://localhost/logs
 ```
 
 7. Restart the pod by scaling instances down to 0 and back up.
@@ -76,16 +81,16 @@ view at http://127.0.0.1:30950/logs
 
 8. Add another log event.
 ```
-% curl 127.0.0.1:30950/hello 
+% curl http://localhost/hello 
   OR 
-view at http://127.0.0.1:30950/hello
+view at http://localhost/hello
 ```
 
 9. Verify the log has two entries.
 ```
-% curl 127.0.0.1:30950/logs 
+% curl http://localhost/logs 
   OR 
-view at http://127.0.0.1:30950/logs
+view at http://localhost/logs
 ```
 
 10. Clean up.
@@ -99,3 +104,4 @@ References
 - [Kind Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/)
 - [Persistent Volumes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
 - [Restarting Pods](https://spacelift.io/blog/restart-kubernetes-pods-with-kubectl)
+- [Kind Ingress](https://kind.sigs.k8s.io/docs/user/ingress/)
