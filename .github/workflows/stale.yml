@@ -4,9 +4,6 @@ on: workflow_dispatch
 jobs:
   stale:
     runs-on: ubuntu-latest
-    permissions:
-      # write permission is required to add label and comment
-      contents: write
     steps:
       - uses: actions/stale@v9
         with:
