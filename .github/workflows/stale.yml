@@ -10,3 +10,4 @@ jobs:
           stale-issue-message: 'This issue is stale because it has been open 30 days with no activity.'
           stale-pr-message: 'This PR is stale because it has been open 30 days with no activity.'
           days-before-stale: 1
+          days-before-close: -1
